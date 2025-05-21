@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kết quả Tìm Kiếm</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="manifest" href="img/site.webmanifest">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .header {
+            background-color: #333;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .header .brand {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+        .header .search-bar {
+            flex: 1;
+            max-width: 600px;
+            margin: 0 20px;
+            display: flex;
+            align-items: center;
+        }
+        .search-bar input {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+        }
+        .search-bar button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #555;
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+        .search-bar button:hover {
+            background-color: #777;
+        }
+        .header .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .header-buttons button {
+            padding: 10px 20px;
+            background-color: #555;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .header-buttons button:hover {
+            background-color: #777;
+        }
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 400px;
+        }
+        .search-title {
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: #333;
+            text-align: center;
+        }
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+            width: 100%;
+            max-width: 1200px;
+            justify-items: center;
+        }
+
+        .product-item {
+            background: #fff;
+            border: 1.5px solid #e2e2e2;
+            border-radius: 20px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+            text-align: center;
+            padding: 32px 22px 22px 22px;
+            min-width: 260px;
+            max-width: 320px;
+            min-height: 400px;
+            transition: box-shadow 0.2s, transform 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .product-item:hover {
+            box-shadow: 0 8px 28px rgba(0,0,0,0.13);
+            transform: translateY(-3px) scale(1.02);
+        }
+
+        .product-item img {
+            max-width: 180px;
+            max-height: 180px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin-bottom: 18px;
+            border: 1.5px solid #ddd;
+            background: #fafbfc;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+        }
+
+        .product-item h3 {
+            font-size: 20px;
+            margin: 12px 0 8px 0;
+            font-weight: 600;
+        }
+
+        .product-item p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 16px;
+        }
+
+        .product-buttons {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .product-buttons button {
+            border-radius: 8px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+<!-- Header -->
+<header class="header">
+    <a href="index.html" class="brand">zino.vn</a>
+    <div class="search-bar">
+        <input type="text" id="search-input" placeholder="Tìm kiếm sản phẩm...">
+        <button onclick="searchProducts()">Tìm kiếm</button>
+    </div>
+    <div class="header-buttons" id="header-buttons"></div>
+</header>
+
+<!-- Main Content -->
+<main class="main-content">
+    <div class="search-title" id="search-title"></div>
+    <div class="product-list" id="search-results"></div>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+    <p>&copy; 2025 Đăng ký bản quyền bởi <strong>Thắng Lợi</strong>.</p>
+    <p>Liên hệ: zinopro.online</p>
+    <p>
+        Theo dõi chúng tôi:
+        <a href="https://www.facebook.com/people/Zinovn-Th%E1%BB%9Di-trang-nam-n%E1%BB%AF/61576583306069/" target="_blank">Facebook</a> |
+        <a href="about-us.html" target="_blank">About Us</a> |
+        <a href="privacy_policy.html" target="_blank">Privacy Policy</a>
+    </p>
+</footer>
+<script src="js/sp.js"></script>
+<script>
+    function getSearchQuery() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get("query") || "";
+    }
+    function displaySearchResults(query) {
+        const resultsContainer = document.getElementById("search-results");
+        const filteredProducts = products.filter(product =>
+            product.name.toLowerCase().includes(query.toLowerCase())
+        );
+        if (filteredProducts.length > 0) {
+            resultsContainer.innerHTML = filteredProducts.map(product => `
+                <div class="product-item">
+                    <img src="${product.image}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p>${product.price}</p>
+                    <div class="product-buttons">
+                        <button onclick="viewDetails(${product.id})">Xem chi tiết</button>
+                        <button onclick="addToCart(event, ${product.id})">Thêm vào Giỏ Hàng</button>
+                        <button onclick="payNow(event, ${product.id})" ${isLoggedIn() ? "" : "disabled title='Vui lòng đăng nhập để thanh toán!'"}>Mua Ngay</button>
+                    </div>
+                </div>
+            `).join("");
+        } else {
+            resultsContainer.innerHTML = "<p>Không tìm thấy sản phẩm nào.</p>";
+        }
+    }
+    function searchProducts() {
+        const query = document.getElementById("search-input").value.trim();
+        if (query) {
+            window.location.href = `search.html?query=${encodeURIComponent(query)}`;
+        }
+    }
+    function viewDetails(productId) {
+        localStorage.setItem("productDetailId", productId);
+        window.location.href = "product-details.html";
+    }
+    function addToCart(event, productId) {
+        if (!isLoggedIn()) {
+            alert("Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng!");
+            window.location.href = "login.html";
+            return;
+        }
+        event.stopPropagation();
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const product = products.find(p => p.id === productId);
+        cart.push(product);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        alert(`${product.name} đã được thêm vào giỏ hàng!`);
+    }
+    function payNow(event, productId) {
+        event.stopPropagation();
+        if (!isLoggedIn()) {
+            alert("Vui lòng đăng nhập để thanh toán!");
+            window.location.href = "login.html";
+            return;
+        }
+        const product = products.find(p => p.id === productId);
+        const cart = [product];
+        localStorage.setItem("cart", JSON.stringify(cart));
+        alert(`Đang chuyển đến giỏ hàng với sản phẩm: ${product.name}`);
+        window.location.href = "cart.html";
+    }
+    function isLoggedIn() {
+        return localStorage.getItem("loggedIn") === "true";
+    }
+    function updateHeaderButtons() {
+        const headerButtons = document.getElementById("header-buttons");
+        headerButtons.innerHTML = isLoggedIn()
+            ? `<button onclick="goToCart()">Giỏ Hàng</button>
+               <button onclick="logout()">Đăng Xuất</button>`
+            : `<button onclick="login()">Đăng Nhập</button>`;
+    }
+    function login() {
+        window.location.href = "login.html";
+    }
+    function logout() {
+        localStorage.removeItem("loggedIn");
+        updateHeaderButtons();
+        alert("Bạn đã đăng xuất!");
+    }
+    function goToCart() {
+        window.location.href = "cart.html";
+    }
+    document.addEventListener("DOMContentLoaded", function () {
+        updateHeaderButtons();
+        const query = getSearchQuery();
+        document.getElementById("search-title").textContent = `Kết quả tìm kiếm cho: "${query}"`;
+        displaySearchResults(query);
+        document.getElementById("search-input").value = query;
+        document.getElementById("search-input").addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                searchProducts();
+            }
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Chủ</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="manifest" href="img/site.webmanifest">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .header {
+            background-color: #333;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .header .brand {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+        .header .search-bar {
+            flex: 1;
+            max-width: 600px;
+            margin: 0 20px;
+            display: flex;
+            align-items: center;
+        }
+        .search-bar input {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+        }
+        .search-bar button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #555;
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+        .search-bar button:hover {
+            background-color: #777;
+        }
+        .banner {
+            width: 100vw;
+            max-width: 100%;
+            height: 400px;
+            background: url('img/banner.jpg') center/cover no-repeat;
+            margin: 20px auto 0 auto;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .header .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .header-buttons button {
+            padding: 10px 20px;
+            background-color: #555;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .header-buttons button:hover {
+            background-color: #777;
+        }
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 32px;
+    width: 100%;
+    max-width: 1200px;
+    justify-items: center;
+}
+
+.product-item {
+    background: #fff;
+    border: 1.5px solid #e2e2e2;
+    border-radius: 20px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    text-align: center;
+    padding: 32px 22px 22px 22px;
+    min-width: 260px;
+    max-width: 320px;
+    min-height: 400px;
+    transition: box-shadow 0.2s, transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.product-item:hover {
+    box-shadow: 0 8px 28px rgba(0,0,0,0.13);
+    transform: translateY(-3px) scale(1.02);
+}
+
+.product-item img {
+    max-width: 180px;
+    max-height: 180px;
+    object-fit: cover;
+    border-radius: 16px;
+    margin-bottom: 18px;
+    border: 1.5px solid #ddd;
+    background: #fafbfc;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+}
+
+.product-item h3 {
+    font-size: 20px;
+    margin: 12px 0 8px 0;
+    font-weight: 600;
+}
+
+.product-item p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 16px;
+}
+
+.product-buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.product-buttons button {
+    border-radius: 8px;
+    font-weight: 500;
+}
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 14px;
+        }
+        .footer a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 768px) {
+            .banner { height: 200px; }
+            .product-item img { max-height: 100px; }
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+    <a href="index.html" class="brand">zino.vn</a>
+    <div class="search-bar">
+        <input type="text" id="search-input" placeholder="Tìm kiếm sản phẩm...">
+        <button onclick="searchProducts()">Tìm kiếm</button>
+    </div>
+    <div class="header-buttons" id="header-buttons"></div>
+</header>
+<div class="banner"></div>
+<div class="filters-and-title" style="width:100%;max-width:1200px;margin:25px auto 0 auto;display:flex;align-items:center;justify-content:space-between;">
+    <h2 class="filter-title" style="margin:0;">Danh Sách Sản Phẩm</h2>
+    <select id="category-filter" class="filter-menu" onchange="filterProducts()" style="padding:8px 12px;border-radius:5px;">
+        <option value="all">Tất cả</option>
+        <option value="Nam">Đồ Nam</option>
+        <option value="Nữ">Đồ Nữ</option>
+        <option value="Quần">Quần</option>
+        <option value="Áo">Áo</option>
+        <option value="Váy">Váy</option>
+    </select>
+</div>
+<main class="main-content">
+    <div class="product-list" id="product-list"></div>
+</main>
+<footer class="footer">
+    <p>&copy; 2025 Đăng ký bản quyền bởi <strong>Thắng Lợi</strong>.</p>
+    <p>Liên hệ: zinopro.online</p>
+    <p>
+        Theo dõi chúng tôi:
+        <a href="https://www.facebook.com/people/Zinovn-Th%E1%BB%9Di-trang-nam-n%E1%BB%AF/61576583306069/" target="_blank">Facebook</a> |
+        <a href="about-us.html" target="_blank">About Us</a> |
+        <a href="privacy_policy.html" target="_blank">Privacy Policy</a>
+    </p>
+</footer>
+<script src="js/sp.js"></script>
+<script>
+    // Hiển thị danh sách sản phẩm
+    function displayProducts(filteredProducts = products) {
+        const productList = document.getElementById("product-list");
+        if (!productList) return;
+        if (!filteredProducts.length) {
+            productList.innerHTML = "<p>Không có sản phẩm nào.</p>";
+            return;
+        }
+        productList.innerHTML = filteredProducts.map(product => `
+            <div class="product-item">
+                <img src="${product.image}" alt="${product.name}">
+                <h3>${product.name}</h3>
+                <p>${product.price}</p>
+                <div class="product-buttons">
+                    <button class="detail-btn" data-id="${product.id}">Xem chi tiết</button>
+                    <button class="cart-btn" data-id="${product.id}">Thêm vào Giỏ Hàng</button>
+                    <button class="pay-btn" data-id="${product.id}" ${isLoggedIn() ? "" : "disabled title='Vui lòng đăng nhập để thanh toán!'"}>Mua Ngay</button>
+                </div>
+            </div>
+        `).join("");
+        // Thêm sự kiện cho các nút
+        document.querySelectorAll('.detail-btn').forEach(btn => {
+            btn.onclick = function(e) {
+                viewDetails(Number(btn.dataset.id));
+            };
+        });
+        document.querySelectorAll('.cart-btn').forEach(btn => {
+            btn.onclick = function(e) {
+                addToCart(e, Number(btn.dataset.id));
+            };
+        });
+        document.querySelectorAll('.pay-btn').forEach(btn => {
+            btn.onclick = function(e) {
+                payNow(e, Number(btn.dataset.id));
+            };
+        });
+    }
+    function filterProducts() {
+        const category = document.getElementById("category-filter").value;
+        const filteredProducts = category === "all"
+            ? products
+            : products.filter(product => {
+                if (Array.isArray(product.category)) {
+                    return product.category.includes(category);
+                } else {
+                    return product.category === category;
+                }
+            });
+        displayProducts(filteredProducts);
+    }
+    document.getElementById("search-input").addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            const query = event.target.value.trim();
+            if (query) {
+                window.location.href = `search.html?query=${encodeURIComponent(query)}`;
+            }
+        }
+    });
+    function searchProducts() {
+        const query = document.getElementById("search-input").value.trim();
+        if (query) {
+            window.location.href = `search.html?query=${encodeURIComponent(query)}`;
+        }
+    }
+    function addToCart(event, productId) {
+        if (!isLoggedIn()) {
+            alert("Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng!");
+            window.location.href = "login.html";
+            return;
+        }
+        event.stopPropagation();
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const product = products.find(p => p.id === productId);
+        cart.push(product);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        alert(`${product.name} đã được thêm vào giỏ hàng!`);
+    }
+    function payNow(event, productId) {
+        event.stopPropagation();
+        if (!isLoggedIn()) {
+            alert("Vui lòng đăng nhập để thanh toán!");
+            window.location.href = "login.html";
+            return;
+        }
+        const product = products.find(p => p.id === productId);
+        const cart = [product];
+        localStorage.setItem("cart", JSON.stringify(cart));
+        alert(`Đang chuyển đến giỏ hàng với sản phẩm: ${product.name}`);
+        window.location.href = "cart.html";
+    }
+    function viewDetails(productId) {
+        localStorage.setItem("productDetailId", productId);
+        window.location.href = "product-details.html";
+    }
+    function isLoggedIn() {
+        return localStorage.getItem("loggedIn") === "true";
+    }
+    function updateHeaderButtons() {
+        const headerButtons = document.getElementById("header-buttons");
+        headerButtons.innerHTML = isLoggedIn()
+            ? `<button onclick="goToCart()">Giỏ Hàng</button>
+               <button onclick="logout()">Đăng Xuất</button>`
+            : `<button onclick="login()">Đăng Nhập</button>`;
+    }
+    function login() {
+        window.location.href = "login.html";
+    }
+    function logout() {
+        localStorage.removeItem("loggedIn");
+        updateHeaderButtons();
+        alert("Bạn đã đăng xuất!");
+    }
+    function goToCart() {
+        window.location.href = "cart.html";
+    }
+    document.addEventListener("DOMContentLoaded", function () {
+        updateHeaderButtons();
+        displayProducts(products);
+    });
+</script>
+</body>
+</html>

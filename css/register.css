@@ -1,0 +1,86 @@
+body {
+  margin: 0;
+  background: #f5f6fa;
+  font-family: 'Montserrat', Arial, sans-serif;
+}
+header .navbar {
+  background: #232323;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+header .brand {
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+main {
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.register-form {
+  background: #fff;
+  padding: 2.5rem 2rem 2rem 2rem;
+  border-radius: 18px;
+  box-shadow: 0 6px 32px rgba(50,50,93,0.09), 0 1.5px 4px rgba(0,0,0,0.03);
+  min-width: 340px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.register-form h2 {
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.form-group label {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+.form-group input {
+  padding: 0.75rem;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: #fafbfc;
+  transition: border 0.2s;
+}
+.form-group input:focus {
+  outline: none;
+  border-color: #339cff;
+}
+.register-form button {
+  margin-top: 10px;
+  background: linear-gradient(90deg,#339cff 0%,#005bea 100%);
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  padding: 0.9rem;
+  border-radius: 8px;
+  font-size: 1.08rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.register-form button:hover {
+  background: linear-gradient(90deg,#005bea 0%,#339cff 100%);
+}
+/*định dạng footer*/
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: auto;
+}

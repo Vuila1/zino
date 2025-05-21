@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Giỏ Hàng</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:600,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/register.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="manifest" href="img/site.webmanifest">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .navbar {
+            background-color: #333;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar .brand {
+            font-size: 24px;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+        }
+        .search-bar {
+            flex: 1;
+            display: flex;
+            gap: 10px;
+            margin: 0 20px;
+        }
+        .search-bar input {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+        }
+        .search-bar button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #555;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .search-bar button:hover {
+            background-color: #777;
+        }
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .header-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #555;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .header-buttons button:hover {
+            background-color: #777;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .cart-container {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+        }
+        .cart-container h2 {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+        .cart-items {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 12px;
+        }
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        .cart-item-details {
+            flex: 1;
+        }
+        .cart-item-details p {
+            margin: 4px 0;
+        }
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .quantity-input {
+            width: 50px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 5px;
+        }
+        .remove-btn {
+            padding: 6px 12px;
+            font-size: 14px;
+            color: white;
+            background-color: #ff4d4f;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .remove-btn:hover {
+            background-color: #ff7875;
+        }
+        .cart-summary {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .total {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .checkout-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .checkout-btn:hover {
+            background-color: #45a049;
+        }
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+        }
+        .footer a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="navbar">
+        <a href="index.html" class="brand">zino.vn</a>
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Tìm kiếm sản phẩm...">
+            <button onclick="searchProducts()">Tìm kiếm</button>
+        </div>
+        <div class="header-buttons" id="header-buttons"></div>
+    </div>
+</header>
+<main>
+    <div class="cart-container">
+        <h2>Giỏ Hàng</h2>
+        <div id="cart-items" class="cart-items"></div>
+        <div id="message" style="color: red; text-align: center; min-height: 20px;"></div>
+        <div class="cart-summary">
+            <p id="total" class="total"></p>
+            <button id="checkout-btn" class="checkout-btn" onclick="checkout()">Thanh Toán</button>
+        </div>
+        <div style="text-align: center; margin-top: 10px;">
+            <a href="index.html" style="color: #4CAF50; text-decoration: none;">Tiếp tục mua sắm</a>
+        </div>
+    </div>
+</main>
+<footer class="footer">
+    <p>&copy; 2025 Đăng ký bản quyền bởi <strong>Thắng Lợi</strong>.</p>
+    <p>Liên hệ: zinopro.online</p>
+    <p>
+        Theo dõi chúng tôi:
+        <a href="https://www.facebook.com/people/Zinovn-Th%E1%BB%9Di-trang-nam-n%E1%BB%AF/61576583306069/" target="_blank">Facebook</a> |
+        <a href="about-us.html" target="_blank">About Us</a> |
+        <a href="privacy_policy.html" target="_blank">Privacy Policy</a>
+    </p>
+</footer>
+<script src="js/sp.js"></script>
+<script>
+    function displayCart() {
+        const cartItems = document.getElementById('cart-items');
+        const totalElement = document.getElementById('total');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        if (cart.length === 0) {
+            cartItems.innerHTML = "<p>Giỏ hàng của bạn đang trống.</p>";
+            totalElement.textContent = "";
+            checkoutBtn.style.display = 'none';
+            return;
+        }
+
+        let total = 0;
+        cartItems.innerHTML = cart.map(cartItem => {
+            const product = products.find(p => p.id === cartItem.id);
+            if (!product) return '';
+
+            const itemTotal = parseInt(product.price.replace(/[^0-9]/g, '')) * (cartItem.quantity || 1);
+            total += itemTotal;
+
+            return `
+                <div class="cart-item">
+                    <img src="${product.image}" alt="${product.name}" class="cart-item-image">
+                    <div class="cart-item-details">
+                        <p><strong>${product.name}</strong></p>
+                        <p>Giá: ${product.price}</p>
+                        <div class="quantity-control">
+                            <button onclick="updateQuantity(${cartItem.id}, -1)">-</button>
+                            <input type="number" class="quantity-input" value="${cartItem.quantity || 1}" onchange="updateQuantity(${cartItem.id}, this.value)">
+                            <button onclick="updateQuantity(${cartItem.id}, 1)">+</button>
+                        </div>
+                    </div>
+                    <button onclick="removeFromCart(${cartItem.id})" class="remove-btn">Xóa</button>
+                </div>
+            `;
+        }).join('');
+
+        totalElement.textContent = `Tổng cộng: ${total.toLocaleString('vi-VN')}đ`;
+        checkoutBtn.style.display = 'inline-block';
+    }
+
+    function updateQuantity(productId, change) {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const item = cart.find(item => item.id === productId);
+        if (item) {
+            if (typeof change === 'number') {
+                item.quantity = Math.max(1, (item.quantity || 1) + change);
+            } else {
+                item.quantity = Math.max(1, parseInt(change) || 1);
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            displayCart();
+        }
+    }
+
+    function removeFromCart(productId) {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const updatedCart = cart.filter((item) => item.id !== productId);
+        localStorage.setItem('cart', JSON.stringify(updatedCart));
+        displayCart();
+    }
+
+    function checkout() {
+        alert('Thanh toán thành công! Cảm ơn bạn đã mua hàng.');
+        localStorage.removeItem('cart');
+        displayCart();
+    }
+
+    function searchProducts() {
+        const query = document.getElementById("search-input").value.trim();
+        if (query) {
+            window.location.href = `search.html?query=${encodeURIComponent(query)}`;
+        }
+    }
+
+    function updateHeaderButtons() {
+        const headerButtons = document.getElementById("header-buttons");
+        const isLoggedIn = localStorage.getItem("loggedIn") === "true";
+
+        if (isLoggedIn) {
+            headerButtons.innerHTML = `
+                <button onclick="goToCart()">Giỏ Hàng</button>
+                <button onclick="logout()">Đăng Xuất</button>
+            `;
+        } else {
+            headerButtons.innerHTML = `
+                <button onclick="login()">Đăng Nhập</button>
+            `;
+        }
+    }
+
+    function login() {
+        localStorage.setItem("loggedIn", "true");
+        updateHeaderButtons();
+        alert("Đăng nhập thành công!");
+    }
+
+    function logout() {
+        localStorage.removeItem("loggedIn");
+        updateHeaderButtons();
+        alert("Bạn đã đăng xuất!");
+    }
+
+    function goToCart() {
+        window.location.href = "cart.html";
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        updateHeaderButtons();
+        displayCart();
+    });
+</script>
+</body>
+</html>
